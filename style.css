@@ -1,0 +1,89 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+}
+
+:root {
+  font-size: 62.5%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background: url('./bg-space.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.gameContainer {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.panel {
+  min-width: 35rem;
+  min-height: 40rem;
+
+  background: lightgray;
+
+  border: 4rem solid;
+  border-radius: .5rem;
+  border-left-color: rgb(150, 150, 150);
+  border-top-color: rgb(200, 200, 200);
+  border-right-color: rgb(150, 150, 150);
+  border-bottom-color: rgb(100, 100, 100);
+}
+
+.currentPosition {
+  padding: 1rem;
+
+  display: flex;
+  justify-content: space-around;
+}
+
+.ball {
+  width: 4rem;
+  height: 4rem;
+  background-color: darkgreen;
+  border-radius: 50%;
+}
+
+.display {
+  padding: 2rem;
+  width: 100%;
+  height: 26rem;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.led, button {
+  border-radius: .5rem;
+}
+
+.led {
+  background-color: rgb(0, 20, 0);
+  transition: background-color .3s;
+}
+
+button {
+  background: rgb(45, 45, 45);
+  transition: filter .2s;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(.9);
+}
+
+.on {
+  background-color: limegreen;
+}

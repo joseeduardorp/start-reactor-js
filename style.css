@@ -16,6 +16,7 @@ body {
   background: url('./bg-space.png');
   background-size: cover;
   background-repeat: no-repeat;
+  position: relative;
 }
 
 .gameContainer {
@@ -84,6 +85,16 @@ button:hover {
   filter: brightness(.9);
 }
 
-.on {
-  background-color: limegreen;
+.modal {
+  padding: .5rem;
+  background:rgba(255, 255, 255, .5);
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+p {
+  font-size: 2rem;
+  color: white;
 }

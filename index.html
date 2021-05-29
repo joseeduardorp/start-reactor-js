@@ -11,11 +11,11 @@
   <div class="gameContainer">
     <div class="panel">
       <div class="currentPosition">
-        <div class="ball"></div>
-        <div class="ball"></div>
-        <div class="ball"></div>
-        <div class="ball"></div>
-        <div class="ball"></div>
+        <div class="current ball"></div>
+        <div class="current ball"></div>
+        <div class="current ball"></div>
+        <div class="current ball"></div>
+        <div class="current ball"></div>
       </div>
       <div class="display">
         <div class="led"></div>
@@ -31,24 +31,30 @@
     </div>
     <div class="panel">
       <div class="currentPosition">
-        <div class="ball"></div>
-        <div class="ball"></div>
-        <div class="ball"></div>
-        <div class="ball"></div>
-        <div class="ball"></div>
+        <div class="player ball"></div>
+        <div class="player ball"></div>
+        <div class="player ball"></div>
+        <div class="player ball"></div>
+        <div class="player ball"></div>
       </div>
       <div class="display">
-        <button onClick="clicado(this)" data-id="0"></button>
-        <button onClick="clicado(this)" data-id="1"></button>
-        <button onClick="clicado(this)" data-id="2"></button>
-        <button onClick="clicado(this)" data-id="3"></button>
-        <button onClick="clicado(this)" data-id="4"></button>
-        <button onClick="clicado(this)" data-id="5"></button>
-        <button onClick="clicado(this)" data-id="6"></button>
-        <button onClick="clicado(this)" data-id="7"></button>
-        <button onClick="clicado(this)" data-id="8"></button>
+        <button onClick="verify(this)" data-id="0"></button>
+        <button onClick="verify(this)" data-id="1"></button>
+        <button onClick="verify(this)" data-id="2"></button>
+        <button onClick="verify(this)" data-id="3"></button>
+        <button onClick="verify(this)" data-id="4"></button>
+        <button onClick="verify(this)" data-id="5"></button>
+        <button onClick="verify(this)" data-id="6"></button>
+        <button onClick="verify(this)" data-id="7"></button>
+        <button onClick="verify(this)" data-id="8"></button>
       </div>
     </div>
+  </div>
+
+  <div class="modal">
+    <p id="randomList"></p>
+    <p id="blinkList"></p>
+    <p id="playerList"></p>
   </div>
 
   <script src="./game.js"></script>

@@ -1,6 +1,6 @@
 const leds = document.querySelectorAll(".led");
-const currentBalls = document.querySelectorAll(".current");
-const playerBalls = document.querySelectorAll(".player");
+const currentPositionBalls = document.querySelectorAll(".current");
+const playerPositionBalls = document.querySelectorAll(".player");
 const buttons = document.querySelectorAll("button");
 
 const randomListElement = document.getElementById("randomList");
@@ -17,24 +17,32 @@ function randomize() {
   }
 }
 
-let ballIndex = 0;
-function verify(e) {
-  const index = e.dataset.id;
-  playerList.push(index);
-
-  if (playerList[ballIndex] == blinkList[ballIndex]) {
-    if (ballIndex + 1 < randomList.length) {
-      playerBalls[ballIndex].style.backgroundColor = "lime";
-
-      blinkList.push(randomList[ballIndex + 1]);
-      blink(blinkList);
+let currentPositionIndex = 0;
+function checkMove() {
+  if (playerList[currentPositionIndex] == blinkList[currentPositionIndex]) {
+    if (blinkList.length < randomList.length) {
+      if (playerList.length === blinkList.length) {
+        blinkList.push(randomList[currentPositionIndex + 1]);
+        blink(blinkList);
+        
+        playerList = [];
+        currentPositionIndex = 0;
+      } else {
+        currentPositionIndex++;
+      }
     }
-    
-    ballIndex++;
+
     showInfos();
   } else {
     reset();
   }
+}
+
+function move(e) {
+  const index = e.dataset.id;
+  playerList.push(index);
+
+  checkMove();
 }
 
 let ledsIndex = 0;
@@ -46,7 +54,7 @@ function blink(arr) {
       leds[index].style.backgroundColor = "rgb(0, 20, 0)";
 
       blink(arr);
-    }, 500);
+    }, 250);
   }
 
   setTimeout(() => {
@@ -57,7 +65,7 @@ function blink(arr) {
 
     blinkOne(arr[ledsIndex]);
     ledsIndex++;
-  }, 500);
+  }, 250);
 }
 
 function showInfos() {
@@ -72,14 +80,14 @@ function reset() {
   playerList = [];
 
   ledsIndex = 0;
-  ballIndex = 0;
+  currentPositionIndex = 0;
 
-  for (let i = 0; i < currentBalls.length; i++) {
-    currentBalls[i].style.backgroundColor = "darkgreen";
+  for (let i = 0; i < currentPositionBalls.length; i++) {
+    currentPositionBalls[i].style.backgroundColor = "darkgreen";
   }
 
-  for (let i = 0; i < playerBalls.length; i++) {
-    playerBalls[i].style.backgroundColor = "darkgreen";
+  for (let i = 0; i < playerPositionBalls.length; i++) {
+    playerPositionBalls[i].style.backgroundColor = "darkgreen";
   }
 
   showInfos();

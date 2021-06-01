@@ -2,10 +2,7 @@ const leds = document.querySelectorAll(".led");
 const currentPositionBalls = document.querySelectorAll(".current");
 const playerPositionBalls = document.querySelectorAll(".player");
 const buttons = document.querySelectorAll("button");
-
-const randomListElement = document.getElementById("randomList");
-const blinkListElement = document.getElementById("blinkList");
-const playerListElement = document.getElementById("playerList");
+const modal = document.querySelector(".modal");
 
 let randomList = [];
 let blinkList = [];
@@ -17,12 +14,74 @@ function randomize() {
   }
 }
 
+function win() {
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].style.backgroundColor = "rgb(0, 200, 200)";
+  }
+
+  setTimeout(() => {
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].style.backgroundColor = "rgb(100, 100, 100)";
+    }
+  }, 500);
+}
+
+function lost() {
+  for (let i = 0; i < leds.length; i++) {
+    leds[i].style.backgroundColor = "rgb(200, 0, 0)";
+  }
+
+  setTimeout(() => {
+    for (let i = 0; i < leds.length; i++) {
+      leds[i].style.backgroundColor = "rgb(0, 0, 25)";
+    }
+  }, 500);
+}
+
+function isFinished() {
+  if (playerList.length === randomList.length) {
+    win();
+    setTimeout(() => {
+      reset();
+    }, 500);
+  }
+}
+
+function blockButtons() {
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].disabled = true;
+  }
+}
+
+function unblockButtons() {
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].disabled = false;
+  }
+}
+
+function resetPlayerBallsPosition() {
+  setTimeout(() => {
+    for (let i = 0; i < playerPositionBalls.length; i++) {
+      playerPositionBalls[i].style.backgroundColor = "rgb(40, 40, 40)";
+    }
+  }, 250);
+}
+
 let currentPositionIndex = 0;
-function checkMove() {
+function checkMove(index) {
+  playerPositionBalls[playerList.length].style.backgroundColor = "green";
+  playerList.push(index);
+  
   if (playerList[currentPositionIndex] == blinkList[currentPositionIndex]) {
     if (blinkList.length < randomList.length) {
       if (playerList.length === blinkList.length) {
-        blinkList.push(randomList[currentPositionIndex + 1]);
+        let nextNumber = currentPositionIndex + 1;
+
+      	blinkList.push(randomList[nextNumber]);
+        currentPositionBalls[nextNumber].style.backgroundColor = "green";
+        
+        resetPlayerBallsPosition();
+        blockButtons();
         blink(blinkList);
         
         playerList = [];
@@ -31,27 +90,26 @@ function checkMove() {
         currentPositionIndex++;
       }
     }
-
-    showInfos();
   } else {
+    lost();
     reset();
   }
 }
 
 function move(e) {
   const index = e.dataset.id;
-  playerList.push(index);
-
-  checkMove();
+  
+  checkMove(index);
+  isFinished();
 }
 
 let ledsIndex = 0;
 function blink(arr) {
   const blinkOne = (index) => {
-    leds[index].style.backgroundColor = "limegreen";
+    leds[index].style.backgroundColor = "rgb(0, 200, 200)";
 
     setTimeout(() => {
-      leds[index].style.backgroundColor = "rgb(0, 20, 0)";
+      leds[index].style.backgroundColor = "rgb(0, 0, 25)";
 
       blink(arr);
     }, 250);
@@ -60,7 +118,7 @@ function blink(arr) {
   setTimeout(() => {
     if (ledsIndex >= arr.length) {
       ledsIndex = 0;
-      return;
+      return unblockButtons();
     }
 
     blinkOne(arr[ledsIndex]);
@@ -68,43 +126,44 @@ function blink(arr) {
   }, 250);
 }
 
-function showInfos() {
-  randomListElement.innerText = "Random List: " + randomList;
-  blinkListElement.innerText = "Blink List: " + blinkList;
-  playerListElement.innerText = "Player List: " + playerList;
-}
-
 function reset() {
-  randomList = [];
-  blinkList = [];
-  playerList = [];
-
-  ledsIndex = 0;
-  currentPositionIndex = 0;
-
-  for (let i = 0; i < currentPositionBalls.length; i++) {
-    currentPositionBalls[i].style.backgroundColor = "darkgreen";
-  }
-
-  for (let i = 0; i < playerPositionBalls.length; i++) {
-    playerPositionBalls[i].style.backgroundColor = "darkgreen";
-  }
-
-  showInfos();
-  start();
+  setTimeout(() => {
+    randomList = [];
+    blinkList = [];
+    playerList = [];
+    
+    ledsIndex = 0;
+    currentPositionIndex = 0;
+    
+    for (let i = 0; i < currentPositionBalls.length; i++) {
+      currentPositionBalls[i].style.backgroundColor = "rgb(40, 40, 40)";
+    }
+    
+    for (let i = 0; i < playerPositionBalls.length; i++) {
+      playerPositionBalls[i].style.backgroundColor = "rgb(40, 40, 40)";
+    }
+    
+    blockButtons();
+    start();
+  }, 1000);
 }
 
 function start() {
   randomize();
   blinkList.push(randomList[0]);
-
-  showInfos();
-
+  
   setTimeout(() => {
     blink(blinkList);
+    currentPositionBalls[0].style.backgroundColor = "green";
   }, 1000);
 }
 
 onload = () => {
-  start();
+  blockButtons();
+
+  document.body.addEventListener("keypress", (e) => {
+    start();
+    if (e.key === "Enter") 
+      modal.style.display = "none";
+  });
 }

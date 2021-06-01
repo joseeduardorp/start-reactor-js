@@ -8,8 +8,12 @@
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <div class="gameContainer">
-    <div class="panel">
+  <section class="gameContainer">
+    <header>
+      <h1>Start Reactor in JS</h1>
+    </header>
+
+    <article class="panel">
       <div class="currentPosition">
         <div class="current ball"></div>
         <div class="current ball"></div>
@@ -28,8 +32,9 @@
         <div class="led"></div>
         <div class="led"></div>
       </div>
-    </div>
-    <div class="panel">
+    </article>
+    
+    <article class="panel">
       <div class="currentPosition">
         <div class="player ball"></div>
         <div class="player ball"></div>
@@ -48,13 +53,11 @@
         <button onClick="move(this)" data-id="7"></button>
         <button onClick="move(this)" data-id="8"></button>
       </div>
-    </div>
-  </div>
+    </article>
+  </section>
 
   <div class="modal">
-    <p id="randomList"></p>
-    <p id="blinkList"></p>
-    <p id="playerList"></p>
+    <h2>Press Enter to Start the Reactor</h2>
   </div>
 
   <script src="./game.js"></script>

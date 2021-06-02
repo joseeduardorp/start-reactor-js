@@ -1,4 +1,4 @@
-/* Global */
+﻿/* Global */
 * {
   margin: 0;
   padding: 0;
@@ -14,7 +14,7 @@
 body {
   width: 100vw;
   height: 100vh;
-  background: url('./bg-space.png');
+  background: url('./assets/bg-space.png');
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;

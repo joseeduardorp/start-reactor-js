@@ -1,5 +1,5 @@
 <h1 align="center">
-	# Start Reactor em Javascript
+	Start Reactor em Javascript
 </h1>
 
 ![start-reactor-js-background](./assets/start-reactor-js-background.png)
